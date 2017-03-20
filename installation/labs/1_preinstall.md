@@ -1,4 +1,4 @@
-# 1. Check vm.swappiness
+#### 1. Check vm.swappiness
   
   Before change in all 5 nodes:
   
@@ -32,7 +32,7 @@
 
   1
 
-# 2. Show the mount attributes of your volume(s)
+#### 2. Show the mount attributes of your volume(s)
 
 
 ubuntu@ip-172-31-15-56:~$ df
@@ -92,36 +92,37 @@ none              102400      0    102400   0% /run/user
 /dev/xvdb       38565344  49164  36550512   1% /mnt
 
 
-# Disable transparent hugepage support
+#### 4. Disable transparent hugepage support
 
 Before change in all 5 nodes:
 ubuntu@ip-172-31-15-56:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
 [always] madvise never
 
-# changed in 5 nodes
-1. install the sysfsutils package:
+changed in 5 nodes
+1. installed the sysfsutils package:
     sudo apt install sysfsutils
 2. append a line with that setting to /etc/sysfs.conf:
     kernel/mm/transparent_hugepage/enabled = never
 
-# After chnage in all 5 nodes
+After chnage in all 5 nodes
 
-ubuntu@ip-172-31-15-56:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
+  ubuntu@ip-172-31-15-56:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
+  always madvise [never]
 
-ubuntu@ip-172-31-2-47:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
+  ubuntu@ip-172-31-2-47:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
+  always madvise [never]
 
-ubuntu@ip-172-31-13-47:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
+  ubuntu@ip-172-31-13-47:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
+  always madvise [never]
 
-ubuntu@ip-172-31-6-163:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
+  ubuntu@ip-172-31-6-163:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
+  always madvise [never]
 
-ubuntu@ip-172-31-15-252:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
-always madvise [never]
+  ubuntu@ip-172-31-15-252:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
+  always madvise [never]
 
 
+#### 5.List your network interface configuration
 ubuntu@ip-172-31-15-56:~$ ifconfig
 eth0      Link encap:Ethernet  HWaddr 0a:89:8f:51:74:89  
           inet addr:172.31.15.56  Bcast:172.31.15.255  Mask:255.255.240.0
@@ -220,7 +221,7 @@ lo        Link encap:Local Loopback
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
 
-
+#### 6. Show correct forward and reverse host lookups
 ubuntu@ip-172-31-15-56:~$ getent hosts 34.208.40.182
 34.208.40.182   ec2-34-208-40-182.us-west-2.compute.amazonaws.com
 ubuntu@ip-172-31-15-56:~$ getent hosts hosts 172.31.15.56
@@ -251,10 +252,12 @@ ubuntu@ip-172-31-15-252:~$ getent hosts 172.31.15.252
 172.31.15.252   ip-172-31-15-252.us-west-2.compute.internal
 ubuntu@ip-172-31-15-252:~$ 
 
+#### 7. Show the nscd service is running
 
 sudo apt-get update
 sudo apt-get install nscd
 sudo service nscd start
+
 ubuntu@ip-172-31-15-56:~$ sudo service nscd status
  * Status of Name Service Cache Daemon service:                                                                                                                                                              * running.
 
@@ -269,7 +272,7 @@ ubuntu@ip-172-31-6-163:~$ sudo service nscd status
 
 ubuntu@ip-172-31-15-252:~$ sudo service nscd status
  * Status of Name Service Cache Daemon service:                                                                                                                                                              * running.
-
+#### 8. Show the ntp service is running
 sudo apt-get install ntp
 
 ubuntu@ip-172-31-15-56:~$ sudo service ntp status

@@ -5,9 +5,10 @@
   ubuntu@ip-172-31-15-56:~$ sudo cat /proc/sys/vm/swappiness
   60
   ```
+  
   Changed using below steps
-    1. sudo vi /etc/sysctl.conf
-    2. Added below line
+  1. sudo vi /etc/sysctl.conf
+  2. Added below line
       vm.swappiness = 1
   
   After change in 5 nodes

@@ -1,40 +1,37 @@
 #### 1. Check vm.swappiness
   
   Before change in all 5 nodes:
-  
+  ```
   ubuntu@ip-172-31-15-56:~$ sudo cat /proc/sys/vm/swappiness
   60
-
+  ```
   Changed using below steps
     1. sudo vi /etc/sysctl.conf
     2. Added below line
       vm.swappiness = 1
   
   After change in 5 nodes
-
+  ```
   ubuntu@ip-172-31-15-56:~$ sudo cat /proc/sys/vm/swappiness
-
   1
 
   ubuntu@ip-172-31-2-47:~$ sudo cat /proc/sys/vm/swappiness
-
   1
 
   ubuntu@ip-172-31-13-47:~$ sudo cat /proc/sys/vm/swappiness
-
   1
+
 
   ubuntu@ip-172-31-6-163:~$ sudo cat /proc/sys/vm/swappiness
-
   1
 
-  ubuntu@ip-172-31-15-252:~$ cat /proc/sys/vm/swappiness
-
+  ubuntu@ip-172-31-15-252:~$ sudo cat /proc/sys/vm/swappiness
   1
+  ```
 
 #### 2. Show the mount attributes of your volume(s)
 
-
+```
 ubuntu@ip-172-31-15-56:~$ df
 Filesystem     1K-blocks   Used Available Use% Mounted on
 udev             7695476     12   7695464   1% /dev
@@ -90,14 +87,15 @@ none                5120      0      5120   0% /run/lock
 none             7700452      0   7700452   0% /run/shm
 none              102400      0    102400   0% /run/user
 /dev/xvdb       38565344  49164  36550512   1% /mnt
-
+```
 
 #### 4. Disable transparent hugepage support
 
 Before change in all 5 nodes:
+```
 ubuntu@ip-172-31-15-56:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
 [always] madvise never
-
+```
 changed in 5 nodes
 1. installed the sysfsutils package:
     sudo apt install sysfsutils
@@ -105,7 +103,7 @@ changed in 5 nodes
     kernel/mm/transparent_hugepage/enabled = never
 
 After chnage in all 5 nodes
-
+```
   ubuntu@ip-172-31-15-56:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
   always madvise [never]
 
@@ -120,9 +118,10 @@ After chnage in all 5 nodes
 
   ubuntu@ip-172-31-15-252:~$ cat /sys/kernel/mm/transparent_hugepage/enabled
   always madvise [never]
-
+```
 
 #### 5.List your network interface configuration
+```
 ubuntu@ip-172-31-15-56:~$ ifconfig
 eth0      Link encap:Ethernet  HWaddr 0a:89:8f:51:74:89  
           inet addr:172.31.15.56  Bcast:172.31.15.255  Mask:255.255.240.0
@@ -219,9 +218,10 @@ lo        Link encap:Local Loopback
           TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
           collisions:0 txqueuelen:0 
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
-
+```
 
 #### 6. Show correct forward and reverse host lookups
+```
 ubuntu@ip-172-31-15-56:~$ getent hosts 34.208.40.182
 34.208.40.182   ec2-34-208-40-182.us-west-2.compute.amazonaws.com
 ubuntu@ip-172-31-15-56:~$ getent hosts hosts 172.31.15.56
@@ -251,13 +251,14 @@ ubuntu@ip-172-31-15-252:~$
 ubuntu@ip-172-31-15-252:~$ getent hosts 172.31.15.252
 172.31.15.252   ip-172-31-15-252.us-west-2.compute.internal
 ubuntu@ip-172-31-15-252:~$ 
+```
 
 #### 7. Show the nscd service is running
 
 sudo apt-get update
 sudo apt-get install nscd
 sudo service nscd start
-
+```
 ubuntu@ip-172-31-15-56:~$ sudo service nscd status
  * Status of Name Service Cache Daemon service:                                                                                                                                                              * running.
 
@@ -272,9 +273,10 @@ ubuntu@ip-172-31-6-163:~$ sudo service nscd status
 
 ubuntu@ip-172-31-15-252:~$ sudo service nscd status
  * Status of Name Service Cache Daemon service:                                                                                                                                                              * running.
+```
 #### 8. Show the ntp service is running
 sudo apt-get install ntp
-
+```
 ubuntu@ip-172-31-15-56:~$ sudo service ntp status
  * NTP server is running
 
@@ -289,3 +291,4 @@ ubuntu@ip-172-31-6-163:~$ sudo service ntp status
  
 ubuntu@ip-172-31-15-252:~$ sudo service ntp status
  * NTP server is running
+```

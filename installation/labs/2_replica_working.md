@@ -1,7 +1,7 @@
 
 # MYSQL Replication
 
-mysql> SHOW SLAVE STATUS \G
+``` mysql> SHOW SLAVE STATUS \G 
 *************************** 1. row ***************************
                Slave_IO_State: Waiting for master to send event
                   Master_Host: 172.31.15.56
@@ -45,3 +45,4 @@ Master_SSL_Verify_Server_Cert: No
              Master_Server_Id: 1
 1 row in set (0.00 sec)
 
+```
